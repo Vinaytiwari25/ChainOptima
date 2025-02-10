@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   Table,
   TableBody,
@@ -7,9 +9,30 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { CheckCircle, XCircle } from "lucide-react";
-import { mockTransactions } from "@/lib/mockData";
+import { useWebSocket } from "@/lib/websocket";
+import { useToast } from "@/hooks/use-toast";
 
 export default function TransactionTable() {
+  const { connect, disconnect } = useWebSocket();
+  const { toast } = useToast();
+
+  // Connect to WebSocket when component mounts
+  useEffect(() => {
+    connect();
+    return () => disconnect();
+  }, [connect, disconnect]);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['/api/transactions'],
+    select: (data) => data.transactions,
+  });
+
+  if (isLoading) {
+    return <div>Loading transactions...</div>;
+  }
+
+  const transactions = data || [];
+
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -24,7 +47,7 @@ export default function TransactionTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {mockTransactions.map((tx) => (
+          {transactions.map((tx) => (
             <TableRow key={tx.id}>
               <TableCell className="font-mono">{tx.txHash}</TableCell>
               <TableCell className="font-mono">{tx.sender}</TableCell>
