@@ -2,10 +2,13 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
+import { predictGasUsage, analyzeTrends } from "./services/ai-prediction";
+import type { Transaction } from "@shared/schema";
 
 interface WebSocketMessage {
-  type: 'subscribe' | 'unsubscribe';
-  channel: string;
+  type: 'subscribe' | 'unsubscribe' | 'requestPrediction';
+  channel?: string;
+  data?: any;
 }
 
 export function registerRoutes(app: Express): Server {
@@ -18,12 +21,19 @@ export function registerRoutes(app: Express): Server {
   wss.on('connection', (ws) => {
     clients.add(ws);
 
-    ws.on('message', (data) => {
+    ws.on('message', async (data) => {
       try {
         const message: WebSocketMessage = JSON.parse(data.toString());
-        console.log('Received:', message);
+
+        if (message.type === 'requestPrediction' && message.data) {
+          const prediction = await predictGasUsage(message.data);
+          ws.send(JSON.stringify({
+            type: 'prediction',
+            data: prediction
+          }));
+        }
       } catch (error) {
-        console.error('Failed to parse message:', error);
+        console.error('Failed to process message:', error);
       }
     });
 
@@ -41,26 +51,45 @@ export function registerRoutes(app: Express): Server {
     });
   };
 
-  // Fetch transactions from database
+  // Fetch transactions with AI analysis
   app.get("/api/transactions", async (_req, res) => {
     try {
       const transactions = await storage.getTransactions();
-      res.json({ transactions });
+      const analysis = await analyzeTrends(transactions);
+
+      res.json({ 
+        transactions,
+        analysis 
+      });
     } catch (error) {
       console.error('Error fetching transactions:', error);
       res.status(500).json({ message: 'Failed to fetch transactions' });
     }
   });
 
-  // Create new transaction with WebSocket notification
+  // Create new transaction with AI prediction
   app.post("/api/transactions", async (req, res) => {
     try {
-      const transaction = await storage.createTransaction(req.body);
+      // Get AI prediction before creating transaction
+      const prediction = await predictGasUsage(req.body);
+
+      const transaction = await storage.createTransaction({
+        ...req.body,
+        aiPredicted: prediction.predictedGas,
+      });
+
       broadcast({
         type: 'NEW_TRANSACTION',
-        data: transaction
+        data: {
+          transaction,
+          prediction
+        }
       });
-      res.json({ transaction });
+
+      res.json({ 
+        transaction,
+        prediction 
+      });
     } catch (error) {
       console.error('Error creating transaction:', error);
       res.status(500).json({ message: 'Failed to create transaction' });
