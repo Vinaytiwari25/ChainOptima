@@ -1,0 +1,38 @@
+Design a visually appealing, modern, and intuitive web application UI for a blockchain-based AI-driven resource allocation platform named "ChainOptima". The web app should have a futuristic, tech-inspired aesthetic with a sleek dark mode theme, neon blue & purple gradients, smooth animations, and a clean UI inspired by Fintech dashboards. The design should be user-friendly, responsive, and highly interactive.
+
+Pages & Features:
+1. Home Page (Landing Page)
+Eye-catching hero section with a futuristic blockchain background animation (glowing nodes & chains).
+Headline: "AI-Powered Blockchain Resource Optimization"
+Subtext: "Predict, Analyze, and Scale blockchain transactions using Layer 2 solutions and AI-driven insights."
+Call-to-action (CTA) buttons: "Get Started", "View Dashboard", "Learn More"
+Features section: Showcasing benefits like AI prediction, gas optimization, Layer 2 integration.
+Testimonials slider from blockchain experts & developers.
+2. Dashboard Page
+Dynamic dashboard with real-time transaction monitoring.
+Graphical representations of blockchain transactions, gas fees, and AI predictions.
+Key statistics cards: TPS (Transactions Per Second), Gas Consumption, AI Prediction Accuracy.
+Live transaction table (sortable, filterable) displaying:
+Tx Hash | Sender | Receiver | Gas Used | AI Predicted Resources | Status ✅❌
+User Controls to execute transactions and analyze AI predictions.
+Dark theme with futuristic charts (D3.js, Chart.js, or Recharts).
+3. AI Model Training Page
+Upload CSV dataset option (drag & drop).
+AI Training Progress Bar with a cool neural network animation.
+View historical AI model performance (accuracy, loss function graph).
+Compare AI-predicted gas usage vs actual gas usage.
+4. Transactions Page
+Initiate transactions (select gas fee, Layer 2 solution: Arbitrum, Polygon, Optimism).
+Track transaction confirmations on a visual timeline.
+Compare AI resource predictions vs real usage.
+5. Settings & User Profile Page
+Account settings (Wallet integration with MetaMask, private key management).
+Theme switcher (Dark Mode / Light Mode with Neon Accents).
+Customization options for AI prediction frequency, logging settings, and API integrations.
+Design Aesthetic & UX Guidelines:
+Modern fintech/blockchain aesthetic with a focus on dark mode, glassmorphism, and neon highlights.
+Smooth UI/UX animations (micro-interactions on hover, button presses, and card flips).
+3D-style UI elements, glowing buttons, futuristic typography (Orbitron, Inter).
+Minimalist yet functional (avoid clutter, ensure easy navigation).
+Responsive & Mobile-friendly UI (adjust grid layouts for different screen sizes).
+Ensure the UI is highly interactive, polished, and production-ready.
