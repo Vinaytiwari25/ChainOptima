@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 
 export function WalletConnect() {
-  const { account, isConnecting, connect, disconnect } = useBlockchain();
+  const { account, isConnecting, connect, disconnect, switchNetwork, network } = useBlockchain();
   const { toast } = useToast();
 
   const handleConnect = async () => {
