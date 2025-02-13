@@ -37,7 +37,22 @@ export default function AITraining() {
           <p className="text-muted-foreground mb-4">
             Drag and drop your CSV dataset here, or click to select files
           </p>
-          <Button onClick={() => {}}>Select Files</Button>
+          <input 
+            type="file" 
+            id="file-upload" 
+            className="hidden" 
+            accept=".csv"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                // Handle the file here
+                console.log("Selected file:", file.name);
+              }
+            }}
+          />
+          <Button onClick={() => document.getElementById('file-upload')?.click()}>
+            Select Files
+          </Button>
         </div>
       </Card>
 
