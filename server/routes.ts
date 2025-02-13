@@ -6,7 +6,7 @@ import { predictGasUsage, analyzeTrends } from "./services/ai-prediction";
 import type { Transaction } from "@shared/schema";
 
 interface WebSocketMessage {
-  type: 'subscribe' | 'unsubscribe' | 'requestPrediction';
+  type: 'subscribe' | 'unsubscribe' | 'requestPrediction' | 'nodeMetrics';
   channel?: string;
   data?: any;
 }
@@ -31,6 +31,8 @@ export function registerRoutes(app: Express): Server {
             type: 'prediction',
             data: prediction
           }));
+        } else if (message.type === 'nodeMetrics') {
+          //Handle node metrics subscription/unsubscription here if needed.
         }
       } catch (error) {
         console.error('Failed to process message:', error);
@@ -96,5 +98,20 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  // Placeholder for node metrics service - needs implementation
+  const startMetricsService = (wss: WebSocketServer) => {
+    console.log("Node metrics service started (placeholder).");
+    //  Implementation to collect and send node metrics via wss would go here.
+    setInterval(() => {
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify({type: 'nodeMetrics', data: {cpu: 50, memory: 2048}})); // Placeholder data
+            }
+        });
+    }, 5000);
+
+  };
+
+  startMetricsService(wss);
   return httpServer;
 }
