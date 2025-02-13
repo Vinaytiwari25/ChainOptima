@@ -9,10 +9,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useTheme } from "@/lib/theme";
 
 export default function Settings() {
-  const { theme, setTheme } = useTheme();
+  // Use direct DOM manipulation for theme toggling
+  const handleThemeToggle = (checked: boolean) => {
+    if (checked) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
 
   return (
     <div className="max-w-2xl mx-auto space-y-8">
@@ -23,8 +29,8 @@ export default function Settings() {
             <Label htmlFor="dark-mode">Dark Mode</Label>
             <Switch 
               id="dark-mode" 
-              checked={theme === "dark"}
-              onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+              defaultChecked={document.documentElement.classList.contains("dark")}
+              onCheckedChange={handleThemeToggle}
             />
           </div>
           <div className="space-y-2">
