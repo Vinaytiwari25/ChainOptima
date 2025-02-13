@@ -10,14 +10,38 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const ACCENT_COLORS = {
+  blue: {
+    primary: "hsl(221.2 83.2% 53.3%)",
+    ring: "hsl(224.3 76.3% 48%)",
+  },
+  purple: {
+    primary: "hsl(262.1 83.3% 57.8%)",
+    ring: "hsl(263.4 70% 50.4%)",
+  },
+  cyan: {
+    primary: "hsl(189 94% 43%)",
+    ring: "hsl(190 90% 40%)",
+  },
+};
+
 export default function Settings() {
-  // Use direct DOM manipulation for theme toggling
+  // Theme toggling
   const handleThemeToggle = (checked: boolean) => {
     if (checked) {
       document.documentElement.classList.add("dark");
+      document.documentElement.style.setProperty('color-scheme', 'dark');
     } else {
       document.documentElement.classList.remove("dark");
+      document.documentElement.style.setProperty('color-scheme', 'light');
     }
+  };
+
+  // Accent color handling
+  const handleAccentChange = (color: keyof typeof ACCENT_COLORS) => {
+    const colors = ACCENT_COLORS[color];
+    document.documentElement.style.setProperty('--primary', colors.primary);
+    document.documentElement.style.setProperty('--ring', colors.ring);
   };
 
   return (
@@ -35,7 +59,7 @@ export default function Settings() {
           </div>
           <div className="space-y-2">
             <Label>Accent Color</Label>
-            <Select defaultValue="blue">
+            <Select defaultValue="blue" onValueChange={handleAccentChange}>
               <SelectTrigger>
                 <SelectValue placeholder="Select accent color" />
               </SelectTrigger>
