@@ -9,8 +9,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTheme } from "@/lib/theme";
 
 export default function Settings() {
+  const { theme, setTheme } = useTheme();
+
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       <Card className="p-6">
@@ -18,7 +21,11 @@ export default function Settings() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <Label htmlFor="dark-mode">Dark Mode</Label>
-            <Switch id="dark-mode" defaultChecked />
+            <Switch 
+              id="dark-mode" 
+              checked={theme === "dark"}
+              onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+            />
           </div>
           <div className="space-y-2">
             <Label>Accent Color</Label>

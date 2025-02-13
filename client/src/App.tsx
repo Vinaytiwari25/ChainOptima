@@ -9,8 +9,21 @@ import Transactions from "@/pages/transactions";
 import AITraining from "@/pages/ai-training";
 import Settings from "@/pages/settings";
 import NotFound from "@/pages/not-found";
+import { useTheme } from "@/lib/theme";
+import { useEffect } from "react";
 
 function Router() {
+  const { theme } = useTheme();
+
+  // Sync theme with HTML class on mount and theme changes
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
