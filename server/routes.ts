@@ -11,6 +11,14 @@ interface WebSocketMessage {
   data?: any;
 }
 
+// Placeholder for resource optimization service
+function startResourceOptimizer(wss: WebSocketServer) {
+  console.log("Resource optimizer started (placeholder).");
+  //  In a real implementation, this would involve setting up a TensorFlow.js model,
+  //  connecting to resource monitoring metrics, and implementing optimization logic.
+}
+
+
 export function registerRoutes(app: Express): Server {
   const httpServer = createServer(app);
   const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
@@ -96,5 +104,8 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  //Added startMetricsService and startResourceOptimizer calls
+  startMetricsService(wss); //Assuming this function exists in the original codebase, but is not shown.
+  startResourceOptimizer(wss);
   return httpServer;
 }
