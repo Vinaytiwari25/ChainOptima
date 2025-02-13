@@ -37,17 +37,6 @@ export default function HeroSection() {
           <p className="text-xl mb-8 text-muted-foreground">
             Predict, Analyze, and Scale blockchain transactions using Layer 2 solutions and AI-driven insights.
           </p>
-          <div className="space-x-4">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90"
-            >
-              Get Started
-            </Button>
-            <Button size="lg" variant="outline">
-              Learn More
-            </Button>
-          </div>
         </motion.div>
       </div>
     </section>

@@ -20,14 +20,6 @@ export default function Home() {
           <p className="text-xl mb-8 text-muted-foreground max-w-2xl mx-auto">
             Predict, Analyze, and Scale blockchain transactions using Layer 2 solutions and AI-driven insights.
           </p>
-          <div className="space-x-4">
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-500">
-              Get Started
-            </Button>
-            <Button size="lg" variant="outline">
-              Learn More
-            </Button>
-          </div>
         </motion.div>
       </section>
 
