@@ -69,6 +69,7 @@ export default function Settings() {
                 <SelectItem value="arbitrum">Arbitrum</SelectItem>
                 <SelectItem value="optimism">Optimism</SelectItem>
                 <SelectItem value="polygon">Polygon</SelectItem>
+                <SelectItem value="zk-rollup">ZK-Rollup</SelectItem>
               </SelectContent>
             </Select>
           </div>
